@@ -14,6 +14,6 @@ De maneira geral, a frase acima foi definida como positiva
 It was a common reaction
 De maneira geral, a frase acima foi definida como negativa
 --------------------------------------------------
-Hello my dear friend
-De maneira geral, a frase acima foi definida como neutro
+Que ódio eu tenho de você
+De maneira geral, a frase acima foi definida como negativa
 ```
