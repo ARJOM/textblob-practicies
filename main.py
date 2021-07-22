@@ -1,24 +1,32 @@
 from textblob import TextBlob
 
 
-def analise_de_sentimento(frase):
+def analise_de_sentimento(frase, opcao):
     analise = TextBlob(frase)
 
-    # frases em português tem polaridade e subjetividade 0
-    if analise.sentiment.polarity == 0 and analise.sentiment.subjectivity == 0:
-        # traduzimos a frase para inglês
-        analise = analise.translate(to="en")
-
-    print(50*"-")
-    if analise.sentiment.polarity < 0:
-        resultado = "negativa"
-    elif analise.sentiment.polarity > 0:
+    if analise.sentiment.polarity <= 0:
+        resultado = 'negativa'
+    else:
         resultado = "positiva"
 
-    print(frase)
-    print(f"De maneira geral, a frase acima foi definida como {resultado}")
+    if resultado == opcao:
+        return 1
+    return 0
+
 
 if __name__ == '__main__':
-    analise_de_sentimento("I'm kinda sick today")
-    analise_de_sentimento("Hello everyone, nice to meet you all")
-    analise_de_sentimento("Que ódio eu tenho de você")
+    with open("negativo.txt", "r") as arquivo:
+        linhas = arquivo.read().split('\n')
+        total = len(linhas)
+        count_neg = 0
+        for linha in linhas:
+            count_neg += analise_de_sentimento(linha, 'negativa')
+        print(f"{(count_neg/total)*100}% das amostras foram classificadas, corretamente, como negativas")
+
+    with open("positivo.txt", "r") as arquivo:
+        linhas = arquivo.read().split('\n')
+        total = len(linhas)
+        count_pos = 0
+        for linha in linhas:
+            count_pos += analise_de_sentimento(linha, 'positiva')
+        print(f"{(count_pos/total)*100}% das amostras foram classificadas, corretamente, como positivas")
